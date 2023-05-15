@@ -1,0 +1,37 @@
+title: "Example Config"
+
+model:
+  func_path: './examples/3_param_ode.py' # path to python file contaning ODE, see ode_example.py
+  parameters: # parameters of the model to fit 
+    k: # parameter name
+      init_guess: 1 # int/float - initial guess for parameter value 
+      max: 1000000 # int/float - upper bound for parameter value
+      min: 1.0e-10 # int/float - lower bound for parameter value  - (exponentials must be in decimal format 1.0e-10 as opposed to 1e-10)
+    k_plus:
+      init_guess: 1
+      max: 1000000
+      min: 1.0e-10
+    k_minus:
+      init_guess: 1
+      max: 1000000
+      min: 1.0e-10
+  y0: [10.0e-9, 5.0e-9, 0, 0]# ordered list of int/float - containing initial values of dependant variables of ODE, see ode_example.py for usage
+  max_value : 5.0e-9 # int/float - the maximum value of dependant variable being fitted 
+
+
+fitter: # data for fitting
+  data_wells : ['C4'] # list of str - The wells containing the data to fit ODE model against
+  control_wells: ['C3'] # lists of str - The wells to control for fluorescence bleaching against
+
+
+integration: # integration configeration
+  atol : 1.0e-8 # float- abosute tolerance - (exponential must be in decimal format 1.0e-10 as opposed to 1e-10)
+  rtol : 1.0e-6 # float - relative tolerance
+  method: 'Radau' # str - method to use for scipy integration, see https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html
+
+# RK23', 'RK45', 'DOP853', 'Radau', 'BDF', 'LSODA'
+
+assay:
+  file_path: './examples/data_1.xls' # str - path to Clariostar excel file
+  cols: 12 # int - number of columns in the plate
+  rows : 8 # int - number of rows in the plate
